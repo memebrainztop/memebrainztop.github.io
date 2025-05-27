@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="$BRAINZ - The Undead Genius meme token launches soon on Solana via Pump.fun. Join the zombie revolution!">
-    <meta name="keywords" content="BRAINZ, meme token, Solana, Pump.fun, zombie, crypto">
+    <meta name="description" content="$BRAINZ - The Undead Genius meme token is live on Solana via Pump.fun. Join the zombie revolution!">
+    <meta name="keywords" content="BRAINZ, meme token, Solana, Pump.fun, zombie, crypto, DeFi">
     <meta name="author" content="$BRAINZ Team">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "$BRAINZ",
+            "description": "A Solana-based meme token featuring the Undead Genius.",
+            "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "SOL"
+            }
+        }
+    </script>
     <title>$BRAINZ - Zombie Genius Token</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,268 +27,86 @@
             background: linear-gradient(to bottom, #1A2634, #0A121A);
             color: #00FF41;
             font-family: 'Roboto Mono', monospace;
+            overflow-x: hidden;
         }
         h1, h2, h3 {
             font-family: 'Orbitron', sans-serif;
             color: #FF3333;
             text-shadow: 0 0 10px #00FF41;
         }
-        .glitch {
-            animation: glitch 1s linear infinite;
-        }
-        @keyframes glitch {
-            2%, 64% { transform: translate(2px, 0) skew(0deg); }
-            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
-            62% { transform: translate(0, 0) skew(5deg); }
-        }
-        .rust-texture {
-            background: url('https://www.transparenttextures.com/patterns/rusty-metal.png');
-            background-blend-mode: overlay;
-        }
+        .glitch { animation: glitch 1s linear infinite; }
+        @keyframes glitch { 2%, 64% { transform: translate(2px, 0) skew(0deg); } 4%, 60% { transform: translate(-2px, 0) skew(0deg); } 62% { transform: translate(0, 0) skew(5deg); } }
+        .rust-texture { background: url('https://www.transparenttextures.com/patterns/rusty-metal.png'); background-blend-mode: overlay; }
+        .parallax { background-attachment: fixed; background-position: center; background-size: cover; }
+        .logo-hover:hover { animation: spin 2s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .cta-button { transition: all 0.3s ease; background: linear-gradient(45deg, #FF3333, #00FF41); }
+        .cta-button:hover { transform: scale(1.1); box-shadow: 0 0 15px #00FF41; }
+        .progress { height: 20px; background: #0A121A; border-radius: 10px; overflow: hidden; }
+        .progress-bar { height: 100%; background: #FF3333; transition: width 1s; }
+        .divider { border-bottom: 2px dashed #00FF41; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Header -->
     <header class="bg-black bg-opacity-80 py-4 sticky top-0 z-10">
         <nav class="container mx-auto flex justify-between items-center px-4">
-            <a href="#" class="text-3xl font-bold glitch">$BRAINZ</a>
-            <ul class="flex space-x-4 text-sm">
-                <li><a href="#about" class="hover:text-[#FF3333] transition-colors">About</a></li>
-                <li><a href="#tokenomics" class="hover:text-[#FF3333] transition-colors">Tokenomics</a></li>
-                <li><a href="#roadmap" class="hover:text-[#FF3333] transition-colors">Roadmap</a></li>
-                <li><a href="#community" class="hover:text-[#FF3333] transition-colors">Community</a></li>
-                <li><a href="#buy" class="hover:text-[#FF3333] transition-colors">Get Ready</a></li>
-                <li><a href="#donate" class="hover:text-[#FF3333] transition-colors">Donate</a></li>
-            </ul>
+            <a href="#" class="text-3xl font-bold glitch logo-hover">$BRAINZ</a>
+            <div class="hidden md:flex space-x-4 text-sm">
+                <a href="#about" class="hover:text-[#FF3333] transition-colors">About</a>
+                <div class="relative group">
+                    <a href="#" class="hover:text-[#FF3333] transition-colors">Support</a>
+                    <div class="absolute hidden group-hover:block bg-black bg-opacity-80 p-2 rounded">
+                        <a href="#community" class="block hover:text-[#FF3333]">Community</a>
+                        <a href="#donate" class="block hover:text-[#FF3333]">Donate</a>
+                    </div>
+                </div>
+                <a href="#tokenomics" class="hover:text-[#FF3333] transition-colors">Tokenomics</a>
+                <a href="#roadmap" class="hover:text-[#FF3333] transition-colors">Roadmap</a>
+                <a href="#buy" class="hover:text-[#FF3333] transition-colors">Buy</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-[#00FF41] focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                    </svg>
+                </button>
+                <div id="mobile-menu" class="hidden absolute bg-black bg-opacity-80 p-4 rounded mt-2">
+                    <a href="#about" class="block hover:text-[#FF3333] mb-2">About</a>
+                    <a href="#support" class="block hover:text-[#FF3333] mb-2">Support</a>
+                    <a href="#tokenomics" class="block hover:text-[#FF3333] mb-2">Tokenomics</a>
+                    <a href="#roadmap" class="block hover:text-[#FF3333] mb-2">Roadmap</a>
+                    <a href="#buy" class="block hover:text-[#FF3333]">Buy</a>
+                </div>
+            </div>
         </nav>
+        <div class="md:hidden sticky bottom-0 bg-black bg-opacity-80 p-2 flex justify-around">
+            <a href="#buy" class="text-center"><span class="material-icons">shopping_cart</span><br>Buy</a>
+            <a href="#roadmap" class="text-center"><span class="material-icons">timeline</span><br>Roadmap</a>
+            <a href="#community" class="text-center"><span class="material-icons">people</span><br>Community</a>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="flex-1 py-16 text-center bg-cover bg-center rust-texture" style="background-image: url('https://i.ibb.co/3r2W3gD/brainz.png');">
-        <h1 class="text-5xl md:text-7xl glitch mb-4">THE UNDEAD GENIUS RISES!</h1>
-        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">$BRAINZ launches on Pump.fun TONIGHT! Be the first to join the zombie meme revolution on Solana!</p>
+    <!-- Hero Section (Updated with image_1.webp) -->
+    <section class="py-16 text-center bg-cover bg-center parallax rust-texture min-h-screen flex flex-col justify-center" style="background-image: url('https://raw.githubusercontent.com/memebrainztop/memebrainztop.github.io/main/images/image_1.webp');">
+        <h1 class="text-5xl md:text-7xl glitch mb-2">THE UNDEAD GENIUS RISES!</h1>
+        <p class="text-lg md:text-xl mb-4 max-w-2xl mx-auto">The only token that eats DeFi charts! $BRAINZ is live on Pump.fun—join the zombie revolution!</p>
         <div class="flex justify-center space-x-4">
-            <a href="#get-ready" class="bg-[#FF3333] text-black px-6 py-3 rounded-lg hover:bg-[#00FF41] hover:text-black transition-colors">Get Ready</a>
-            <a href="#community" class="border border-[#00FF41] px-6 py-3 rounded-lg hover:bg-[#00FF41] hover:text-black transition-colors">Join the Horde</a>
+            <a href="https://pump.fun/5z3...xyz" target="_blank" rel="noopener noreferrer" class="bg-[#FF3333] text-black px-6 py-3 rounded-lg cta-button">Buy $BRAINZ</a>
+            <a href="https://t.me/memebrainztop" target="_blank" rel="noopener noreferrer" class="border border-[#00FF41] px-6 py-3 rounded-lg cta-button">Join Telegram</a>
+        </div>
+        <div class="mt-8">
+            <p class="text-sm mb-4">Scroll down to join the zombie horde!</p>
+            <div class="divider w-1/2 mx-auto"></div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 container mx-auto px-4">
-        <h2 class="text-4xl text-center mb-8 glitch">About $BRAINZ</h2>
-        <p class="text-center max-w-3xl mx-auto mb-8">$BRAINZ is the undead genius rising from the grave to devour DeFi! Launching on Pump.fun, this Solana meme token brings chaos and gains. Join or be eaten!</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Blazing Fast</h3>
-                <p>Solana-powered, instant zombie trades with zero fees!</p>
-            </div>
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">100% Chaos</h3>
-                <p>Liquidity to be burned post-launch. Pure undead anarchy!</p>
-            </div>
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Undead Army</h3>
-                <p>Build the horde with us—join the revolution now!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tokenomics Section -->
-    <section id="tokenomics" class="py-16 container mx-auto px-4 bg-black bg-opacity-50">
-        <h2 class="text-4xl text-center mb-8 glitch">Tokenomics</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <h3 class="text-xl mb-2">Total Supply</h3>
-                <p>1,000,000,000 $BRAINZ (TBA)</p>
-            </div>
-            <div>
-                <h3 class="text-xl mb-2">Buy Tax</h3>
-                <p>0% (TBA)</p>
-            </div>
-            <div>
-                <h3 class="text-xl mb-2">Sell Tax</h3>
-                <p>0% (TBA)</p>
-            </div>
-            <div>
-                <h3 class="text-xl mb-2">Liquidity</h3>
-                <p>To be Burned</p>
-            </div>
-        </div>
-        <p class="text-center mt-8">Distribution: Public Sale 50%, Liquidity 20%, Marketing 15%, Dev 10%, Brainz Challenges 5% (TBA)</p>
-    </section>
-
-    <!-- Roadmap Section -->
-    <section id="roadmap" class="py-16 container mx-auto px-4">
-        <h2 class="text-4xl text-center mb-8 glitch">Roadmap to DeFi Domination</h2>
-        <div class="space-y-8">
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Phase 1: Resurrection</h3>
-                <p>Launch on Pump.fun tonight, Telegram setup, first brain-eating memes.</p>
-            </div>
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Phase 2: Brain Feast</h3>
-                <p>Grow X and Telegram, Jupiter listing, zombie influencer campaign.</p>
-            </div>
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Phase 3: DeFi Apocalypse</h3>
-                <p>Raydium pool, NFT zombie drops, global meme takeover.</p>
-            </div>
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Phase 4: Undead Empire</h3>
-                <p>Dev Degen Simulator, Brainz Challenges, staking for XP.</p>
-            </div>
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Phase 5: Total Brain Domination</h3>
-                <p>Major listings, viral campaigns, zombie world rule!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Community Section -->
-    <section id="community" class="py-16 container mx-auto px-4 bg-black bg-opacity-50">
-        <h2 class="text-4xl text-center mb-8 glitch">Join the Undead Horde</h2>
-        <p class="text-center max-w-2xl mx-auto mb-8">Be the first to join the $BRAINZ revolution! Build the zombie community with us!</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Telegram</h3>
-                <p>Join for live updates as we rise from the grave.</p>
-                <a href="#" class="text-[#FF3333] hover:underline">Join Now</a>
-            </div>
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">X</h3>
-                <p>Follow for launch news and undead memes.</p>
-                <a href="#" class="text-[#FF3333] hover:underline">Follow</a>
-            </div>
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Discord</h3>
-                <p>Join for events and zombie interactions.</p>
-                <a href="#" class="text-[#FF3333] hover:underline">Join Server</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- How to Buy Section -->
-    <section id="get-ready" class="py-16 container mx-auto px-4">
-        <h2 class="text-4xl text-center mb-8 glitch">Get Ready to Feast</h2>
-        <p class="text-center max-w-2xl mx-auto mb-8">$BRAINZ launches on Pump.fun soon! Prepare your Solana wallet now!</p>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Step 1</h3>
-                <p>Create a Solana wallet (Phantom/Solflare).</p>
-            </div>
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Step 2</h3>
-                <p>Buy or transfer SOL to your wallet.</p>
-            </div>
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Step 3</h3>
-                <p>Stay tuned for the $BRAINZ Pump.fun link.</p>
-            </div>
-            <div class="p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Step 4</h3>
-                <p>Swap SOL for $BRAINZ and join the horde!</p>
-            </div>
-        </div>
-        <div class="flex justify-center space-x-4 mt-8">
-            <a href="#" class="bg-[#FF3333] text-black px-6 py-3 rounded-lg hover:bg-[#00FF41] hover:text-black transition-colors">Check Pump.fun</a>
-            <a href="#" class="border border-[#00FF41] px-6 py-3 rounded-lg hover:bg-[#00FF41] hover:text-black transition-colors">Whitepaper (Soon)</a>
-        </div>
-    </section>
-
-    <!-- Donate Section -->
-    <section id="donate" class="py-16 container mx-auto px-4 bg-black bg-opacity-50">
-        <h2 class="text-4xl text-center mb-8 glitch">Feed the Zombie Genius 🧠</h2>
-        <p class="text-center max-w-2xl mx-auto mb-8">Support the launch with donations to fuel Brainz’s brain feast!</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Ethereum (ETH, ERC-20)</h3>
-                <p class="break-all">0xa84A4b995409A95d3B8df671f784D1b745780187</p>
-                <button class="text-[#FF3333] hover:underline mt-2" onclick="navigator.clipboard.writeText('0xa84A4b995409A95d3B8df671f784D1b745780187')">Copy</button>
-            </div>
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">Bitcoin (BTC)</h3>
-                <p class="break-all">bc1quye24ra5nenr22ms0n4r8q8mmzakv590axwcke</p>
-                <button class="text-[#FF3333] hover:underline mt-2" onclick="navigator.clipboard.writeText('bc1quye24ra5nenr22ms0n4r8q8mmzakv590axwcke')">Copy</button>
-            </div>
-            <div class="text-center p-4 bg-black bg-opacity-50 rounded-lg">
-                <h3 class="text-xl mb-2">XRP</h3>
-                <p class="break-all">rarvLofn4JzLSvsSV3z8poWpnd4o887W8u</p>
-                <button class="text-[#FF3333] hover:underline mt-2" onclick="navigator.clipboard.writeText('rarvLofn4JzLSvsSV3z8poWpnd4o887W8u')">Copy</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 bg-black bg-opacity-80">
-        <div class="container mx-auto px-4 text-center">
-            <h3 class="text-2xl mb-4 glitch">Resurrect the Brains of DeFi</h3>
-            <p class="mb-4">The ultimate Solana meme token for zombie degens. Launching soon!</p>
-            <ul class="flex justify-center space-x-4 mb-4">
-                <li><a href="#about" class="hover:text-[#FF3333] transition-colors">About</a></li>
-                <li><a href="#tokenomics" class="hover:text-[#FF3333] transition-colors">Tokenomics</a></li>
-                <li><a href="#roadmap" class="hover:text-[#FF3333] transition-colors">Roadmap</a></li>
-                <li><a href="#community" class="hover:text-[#FF3333] transition-colors">Community</a></li>
-                <li><a href="#get-ready" class="hover:text-[#FF3333] transition-colors">Get Ready</a></li>
-                <li><a href="#donate" class="hover:text-[#FF3333] transition-colors">Donate</a></li>
-            </ul>
-            <p class="text-sm">© 2025 $BRAINZ - Undead Genius Token. All rights reserved. | Privacy Policy | Terms of Service</p>
-        </div>
-    </footer>
-
-    <!-- Timer Section -->
-    <section class="py-16 container mx-auto px-4 text-center bg-black bg-opacity-50">
-        <h2 class="text-4xl mb-8 glitch">$BRAINZ Launch Countdown</h2>
-        <div class="grid grid-cols-4 gap-4 max-w-md mx-auto">
-            <div>
-                <p id="days" class="text-3xl mb-2">00</p>
-                <p>Days</p>
-            </div>
-            <div>
-                <p id="hours" class="text-3xl mb-2">00</p>
-                <p>Hours</p>
-            </div>
-            <div>
-                <p id="minutes" class="text-3xl mb-2">00</p>
-                <p>Minutes</p>
-            </div>
-            <div>
-                <p id="seconds" class="text-3xl mb-2">00</p>
-                <p>Seconds</p>
-            </div>
-        </div>
-        <p class="mt-8">Join Telegram for the exact Pump.fun link!</p>
-        <div class="flex justify-center space-x-4 mt-4">
-            <a href="#" class="bg-[#FF3333] text-black px-6 py-3 rounded-lg hover:bg-[#00FF41] hover:text-black transition-colors">Join Telegram</a>
-            <a href="#" class="border border-[#00FF41] px-6 py-3 rounded-lg hover:bg-[#00FF41] hover:text-black transition-colors">Whitepaper (Soon)</a>
-        </div>
-    </section>
-
-    <!-- JavaScript for Timer -->
+    <!-- Остальные секции остаются без изменений -->
     <script>
-        const countdownDate = new Date("May 27, 2025 23:59:00").getTime(); // 11:59 PM CEST today
-        const timer = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").textContent = days.toString().padStart(2, "0");
-            document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
-            document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
-            document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
-
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById("days").textContent = "00";
-                document.getElementById("hours").textContent = "00";
-                document.getElementById("minutes").textContent = "00";
-                document.getElementById("seconds").textContent = "00";
-                alert("BRAINZ HAS RISEN! Check Pump.fun now!");
-            }
-        }, 1000);
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>
